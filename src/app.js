@@ -3,6 +3,18 @@ import { Emulator } from "./emulator.js";
 const emulator = new Emulator();
 
 document.getElementById("step").onclick = () => emulator.step();
+document.getElementById("pause").onclick = () => {
+    if (emulator.running && !emulator.halted) {
+        emulator.running = false;
+        document.getElementById("pause").innerText = "Resume"
+        document.getElementById("status").innerText = "Paused"
+    } else if (!emulator.halted) {
+        emulator.running = true;
+        document.getElementById("pause").innerText = "Pause"
+        document.getElementById("status").innerText = "Running"
+        emulator.step();
+    } else document.getElementById("status").innerText = "Halted";
+}
 
 emulator.memory[0x8000+0] = 0x48;
 emulator.memory[0x8000+1] = 0x0f;

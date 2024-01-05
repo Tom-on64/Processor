@@ -13,9 +13,12 @@ export class Emulator {
             flag: 0b00000010, 
         };
         initDisplay();
+        this.running = false;
+        this.halted = false;
     }
 
     step() {
+        if (this.running) requestAnimationFrame(this.step.bind(this));
         draw(this.memory);
     }
 }
