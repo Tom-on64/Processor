@@ -38,7 +38,7 @@ export const draw = (mem) => {
     ctx.font = "16px IBM_VGA_8x16, monospace";
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
-    for (let i = 0; i < 80*25; i++) {
+    for (let i = 0; i < 2000; i++) {
         const address = VIDMEM + i * 2;
         const char = String.fromCharCode(mem[address]);
         const attr = mem[address+1];

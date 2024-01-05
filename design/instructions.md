@@ -2,49 +2,27 @@
 8-Bit opcodes
 
 Modes:
-00: @ - Address
-01: # - Immediate
-10: & - Register
-11: * - Address in register (either AB or MAR)
+0: @ - Address
+1: # - Immediate
 
-## Common microcode
-This microcode is at the start of every instruction and fetches the next instruction from memory.
-
-It outputs PC to MAR
-Then it outputs from ram to INS and increments PC
-
-`PO MI, RO II CE`
-
-For instructions that take in a memory address, this code will be at the start:
-`PO MI, RO M`
+## ADD
+## SUB
+## INC
+## DEC
+## SHL
+## SHR
+## AND
+## OR
+## NOT
+## XOR
 
 ## LDA
-Loads a value into the A register
-
-| Opcode   | Code example | Microcode |
-| -------- | ------------ | --------- |
-| 00000001 | A = [@]      |  |
-| 00100001 | A = #        |           |
-| 01000001 | A = &        |           |
-| 01100001 | A = [*]      |           |
-
 ## STA
 ## LDB
 ## STB
 ## LDC
 ## STC
-## ADD
-## SUB
-## INC
-## DEC
-## AND
-## OR
-## NOT
-## XOR
-## SHL
-## SHR
-## ROL
-## ROR
+
 ## JMP
 ## JZ
 ## JNZ
@@ -54,10 +32,12 @@ Loads a value into the A register
 ## JNC
 ## JO
 ## JNO
+
 ## PUSH
 ## POP
 ## CALL
 ## RET
+
 ## STI
 ## CLI
 ## INT
@@ -67,24 +47,28 @@ Loads a value into the A register
 ## NOP
 ## HLT
 
-# Micro instructions
-AI - A register in
-AO - A register out
-BI - B register in
-BO - B register out
-CI - C register in
-CO - C register out
+# Micro instructions (32-bit number = one cycle)
+## General purpose registers
+AI - A register in (data bus)
+AO - A register out (data bus)
+BI - B register in (data bus)
+BO - B register out (data bus)
+CI - C register in (data bus)
+CO - C register out (data bus)
 
-MI - Memory address register in (from address bus)
-ML - Memory address register low byte in
-MH - Memory address register hight byte in
-RO - Ram out
-RI - Ram in
+## Memory
+MI - Memory address register in (address bus)
+AAI - Argument address register in (directly from ram)
+AAO - Argument address register out (address bus)
+RO - Ram out (data bus)
+RI - Ram in (data bus)
 
-ΣO - Sum out
-SE - Subtract enable
+## ALU
+ΣO - Sum out (data bus)
+SE - Subtract enable (data bus)
 
-PO - Program counter out
-PI - Program counter in (jmp)
-PE - Program counter enable (clk)
+## System 
+PO - Program counter out (address bus)
+PI - Program counter in (address bus)
+PE - Program counter enable
 HLT - Halt procesor

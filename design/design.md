@@ -6,14 +6,15 @@
 
 ## Registers
 ### General Purpose
-A   - 8-bit
-B   - 8-bit
-C   - 8-bit
+A - 8-bit
+B - 8-bit
+C - 8-bit
 
 ### System
 PC - 16-bit Program counter
 INS - 8-bit Instruction register
 MAR - 16-bit Memory address register
+AAR - 16-bit Argument address register
 
 ### Flags - 8-bit
 ZF - Zero flag
