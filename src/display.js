@@ -1,5 +1,3 @@
-import { Emulator } from "./emulator.js";
-
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById('display');
 const ctx = canvas.getContext('2d');
@@ -35,7 +33,6 @@ const colors = [
 
 /** @argument {Uint8Array} mem */
 export const draw = (mem) => {
-    requestAnimationFrame(() => render(e));
     ctx.clearRect(0, 0, width, height);
 
     ctx.font = "16px IBM_VGA_8x16, monospace";
@@ -43,8 +40,8 @@ export const draw = (mem) => {
     ctx.textBaseline = "top";
     for (let i = 0; i < 80*25; i++) {
         const address = VIDMEM + i * 2;
-        const char = String.fromCharCode(mem.memory[address]);
-        const attr = mem.memory[address+1];
+        const char = String.fromCharCode(mem[address]);
+        const attr = mem[address+1];
 
         const fg = attr & 0x0F;
         const bg = (attr & 0xF0) >> 4;
@@ -58,4 +55,11 @@ export const draw = (mem) => {
         ctx.fillStyle = colors[fg];
         ctx.fillText(char, x, y, charWidth);
     }
+}
+
+export const initDisplay = () => {
+    canvas.width = width;
+    canvas.height = height;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, width, height);
 }

@@ -1,4 +1,4 @@
-import { initDisplay } from "./display.js";
+import { initDisplay, draw } from "./display.js";
 
 export class Emulator {
     constructor() {
@@ -12,10 +12,11 @@ export class Emulator {
             mar: 0x00,
             flag: 0b00000010, 
         };
+        initDisplay();
     }
 
     step() {
-        
+        draw(this.memory);
     }
 }
 
