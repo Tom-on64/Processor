@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emulator</title>
+    <script type="module" src="src/app.js" defer></script>
+    <style>
+        @font-face {
+            font-family: "IBM_VGA_8x16";
+            src: url("IBM_VGA_8x16.ttf");
+        }
+
+        #display {
+            border: 2px black solid;
+        }
+    </style>
+</head>
+<body>
+    <h2>Emulator</h2>
+    <canvas id="display"></canvas>
+    <div id="control">
+        <button id="run">Run</button>
+        <button id="stop">Stop</button>
+        <button id="step">Step</button>
+    </div>
+    <div id="code">
+        <textarea id="codeInput"></textarea>
+        <button id="compile">Compile</button>
+        <button id="load">Load to memory</button>
+    </div>
+</body>
+</html>
