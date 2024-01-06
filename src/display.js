@@ -40,7 +40,7 @@ export const draw = (mem) => {
     ctx.textBaseline = "top";
     for (let i = 0; i < 2000; i++) {
         const address = VIDMEM + i * 2;
-        const char = String.fromCharCode(mem[address]);
+        const char = mem[address] ? String.fromCharCode(mem[address]) : " ";
         const attr = mem[address+1];
 
         const fg = attr & 0x0F;
