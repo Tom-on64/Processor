@@ -1,0 +1,68 @@
+=== Processor ===
+
+RISC Architecture
+Little endian
+8-Bit data bus
+16-Bit address bus
+
+--- Registers ---
+0: A - General Purpose
+1: B - General Purpose
+2: C - General Purpose
+3: D - General Purpose
+4: H - Address register high
+5: L - Address register low
+6: UNUSED
+7: Flags (LSB to MSB)
+    CF - Carry flag
+    ZF - Zero flag
+    EF - Equal flag
+    GF - Greater than flag
+
+8: HL - Address register (only accesible through LDW and STW)
+
+--- Instructions ---
+Instruction schema:
+  xxxxmrrr
+
+x - Opcode
+m - 0: Immediate / 1: Register
+r - Register id
+
+Arguments:
+    1. reg - Register id (if it's the first arg, it's built-into the opcode)
+    2. imm8 - Immediate byte following the instruction (8-bit)
+
+Opcodes:
+0: Add reg, reg/imm8    -> reg = reg + reg/imm8
+1: Adc reg, reg/imm8    -> reg = reg + reg/imm8 + CF
+2: Sub reg, reg/imm8    -> reg = reg - reg/imm8
+3: And reg, reg/imm8    -> reg = reg & reg/imm8
+4: Or  reg, reg/imm8    -> reg = reg | reg/imm8
+5: Nor reg, reg/imm8    -> reg = ~(reg | reg/imm8)
+6: Cmp reg, reg/imm8    -> Update Flags
+7: Mov reg, reg/imm8    -> reg = reg/imm8
+8: Ldw reg, HL/imm16    -> reg = [HL/imm16]
+9: Stw reg, HL/imm16    -> [HL/imm16] = reg
+A: Lda imm16            -> HL = imm16
+B: Jnz reg/imm8         -> reg/imm8 != 0 ? PC = HL : NOP
+C: Push reg/imm8        -> [SP++] = reg/imm8
+D: Pop reg              -> reg = [--SP]
+E: Inb reg, reg/imm8    -> reg = PORT[reg/imm8]
+F: Outb reg, reg/imm8   -> PORT[reg/immi] = reg
+
+--- Memory Layout ---
+0000..7BFF - General Purpose Ram
+7C00..7CFF - Stack (256 Bytes)
+8000..8FFF - Video Memory
+9000..FFF7 - General Purpose Ram
+FFF7..FFFF - Memory mapped registers
+    FFF8..FFFB - RESERVED
+    FFFC..FFFD - Stack Pointer
+    FFFE..FFFF - Program Counter
+
+--- Ports ---
+00 - Status
+    Halt    [RW]
+
+Note: Bits specified from LSB to MSB.
