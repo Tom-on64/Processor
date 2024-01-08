@@ -2,20 +2,16 @@ import { Emulator } from "./emulator.js";
 
 const emulator = new Emulator();
 
-document.getElementById("step").onclick = () => emulator.halted ? document.getElementById("status").innerText = "Halted" : emulator.step();
-document.getElementById("pause").onclick = () => {
-    if (emulator.running) {
-        emulator.running = false;
-        document.getElementById("pause").innerText = "Resume"
-        document.getElementById("status").innerText = "Paused"
-    } else if (!emulator.halted) {
-        emulator.running = true;
-        document.getElementById("pause").innerText = "Pause"
-        document.getElementById("status").innerText = "Running"
-        emulator.step();
-    } 
+document.getElementById("step").onclick = () => emulator.step();
+document.getElementById("pause").onclick = () => emulator.running = !emulator.running;
+document.getElementById("restart").onclick = () => emulator.restart();
+
+const updateInfo = () => {
+    requestAnimationFrame(updateInfo);
     if (emulator.halted) document.getElementById("status").innerText = "Halted";
-}
+    else if (emulator.running) document.getElementById("status").innerText = "Running";
+    else document.getElementById("status").innerText = "Paused";
+}; updateInfo();
 
 const pgm = [
     0x70, 0x48, 

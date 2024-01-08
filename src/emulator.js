@@ -3,6 +3,11 @@ import { initDisplay, draw } from "./display.js";
 export class Emulator {
     constructor() {
         this.MEM = new Uint8Array(65536); // Get 2^16 bytes of memory
+        this.restart();
+        initDisplay();
+    }
+
+    restart() {
         this.REG = [
             0, // A
             0, // B 
@@ -17,19 +22,25 @@ export class Emulator {
             0x00, // 00 - Status
         ];
 
-        // Emulator only
-        this.running = false;
-        this.halted = false;
-        this.pc = 0;
-        
-        initDisplay();
-
         // Init video memory
         for (let i = 0; i < 2000; i++) {
             const add = 0x8000 + i * 2;
-            this.MEM[add+0] = 0;
-            this.MEM[add+1] = 0x0f;
+            this.MEM[add + 0] = 0;
+            this.MEM[add + 1] = 0x0f;
         }
+        // Init stack
+        for (let i = 0; i < 256; i++) this.MEM[0x7c00 + i] = 0;
+
+        // Init 
+        this.pc = 0; // Program counter
+        this.MEM[0xFFFE] = this.pc & 0x00FF; // Low byte
+        this.MEM[0xFFFF] = (this.pc & 0xFF00) >> 8; // High byte
+        this.MEM[0xFFFE] = this.pc & 0x00FF; // Low byte
+        this.MEM[0xFFFF] = (this.pc & 0xFF00) >> 8; // High byte
+
+        // Emulator
+        this.running = false;
+        this.halted = false;
     }
 
     step() {
