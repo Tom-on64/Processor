@@ -3,7 +3,7 @@ import { Emulator } from "./emulator.js";
 const emulator = new Emulator();
 
 document.getElementById("step").onclick = () => emulator.step();
-document.getElementById("pause").onclick = () => emulator.running = !emulator.running;
+document.getElementById("pause").onclick = () => { emulator.running = !emulator.running; emulator.step(); }
 document.getElementById("restart").onclick = () => emulator.restart();
 
 const updateInfo = () => {

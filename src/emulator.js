@@ -4,7 +4,6 @@ export class Emulator {
     constructor() {
         this.MEM = new Uint8Array(65536); // Get 2^16 bytes of memory
         this.restart();
-        initDisplay();
     }
 
     restart() {
@@ -41,6 +40,8 @@ export class Emulator {
         // Emulator
         this.running = false;
         this.halted = false;
+
+        initDisplay();
     }
 
     step() {
