@@ -137,7 +137,10 @@ export class Emulator {
     reg() {
         const reg = this.MEM[this.pc];
         this.pc++;
-        return this.REG[reg];
+
+        if (reg < 8) return this.REG[reg];
+
+        return (this.REG[4] << 8) & this.REG[5];
     }
 
     imm8() {
